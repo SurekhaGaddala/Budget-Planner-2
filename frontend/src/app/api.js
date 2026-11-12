@@ -2,9 +2,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 const baseQuery = fetchBaseQuery({
-  baseUrl:
-    import.meta.env.VITE_API_URL ||
-    "https://budget-planner-api-c2l2.onrender.com/api",
+  baseUrl: "https://budget-planner-api-c2l2.onrender.com/api",
 
   prepareHeaders: (headers) => {
     const token = localStorage.getItem("bp_token");
