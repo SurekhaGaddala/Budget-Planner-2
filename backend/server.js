@@ -1,4 +1,3 @@
-
 require("dotenv").config();
 
 const express = require("express");
@@ -14,9 +13,15 @@ const userRoutes = require("./src/routes/userRoutes");
 const app = express();
 
 // Middleware
+const allowedOrigins = [
+  "http://localhost:5173",
+  process.env.CLIENT_URL
+].filter(Boolean);
+
 app.use(
   cors({
-    origin: process.env.CLIENT_URL || "http://localhost:5173"
+    origin: allowedOrigins,
+    credentials: true
   })
 );
 
@@ -27,7 +32,14 @@ app.get("/", (req, res) => {
   res.send("Welcome to Budget Planner Backend!");
 });
 
-// API health check
+// API root & health check
+app.get("/api", (req, res) => {
+  res.json({
+    status: "ok",
+    message: "Budget Planner API root"
+  });
+});
+
 app.get("/api/health", (req, res) => {
   res.json({
     status: "ok",
